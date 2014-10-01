@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title>My2048</title>
+        <meta name="description" content="">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+        <meta http-equiv="cleartype" content="on">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/2048.css">
+    </head>
+    <body>
+        <header>2048</header>
+        <a href="javascript:;" id="start" class="start">New Game</a>
+        <p class="result">score:<span class="score" id="score">0</span>分</p>
+        <div class="game-grid clearfix" id="game-grid">
+            <div class="cell-grid  clearfix" id="cell-grid">
+                <div class="m-cell" id="cell-0-0"></div>
+                <div class="m-cell" id="cell-0-1"></div>
+                <div class="m-cell" id="cell-0-2"></div>
+                <div class="m-cell" id="cell-0-3"></div>
+
+                <div class="m-cell" id="cell-1-0"></div>
+                <div class="m-cell" id="cell-1-1"></div>
+                <div class="m-cell" id="cell-1-2"></div>
+                <div class="m-cell" id="cell-1-3"></div>
+
+                <div class="m-cell" id="cell-2-0"></div>
+                <div class="m-cell" id="cell-2-1"></div>
+                <div class="m-cell" id="cell-2-2"></div>
+                <div class="m-cell" id="cell-2-3"></div>
+
+                <div class="m-cell" id="cell-3-0"></div>
+                <div class="m-cell" id="cell-3-1"></div>
+                <div class="m-cell" id="cell-3-2"></div>
+                <div class="m-cell" id="cell-3-3"></div>
+            </div>
+        </div>
+        <script src="./js/vendor/jquery-2.1.0.min.js"></script>
+        <script src="./js/main2048.js"></script>
+    </body>
+</html>
