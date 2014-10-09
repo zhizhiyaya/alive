@@ -8,12 +8,41 @@
         <meta name="MobileOptimized" content="320">
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
         <meta http-equiv="cleartype" content="on">
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/2048.css">
+        <style>
+        body{font-family: 'Arial';text-align:center;font-size:1em;}
+        header{display: block;margin:0 auto;width:100%;font-size:2.5em;text-align:center;}
+        .start {display:block;width:100px;padding:10px;margin:20px auto;font-family: 'Arial';color:white;background:#8f7a66;text-decoration: none;border-radius: 6px;}
+        .start:hover{background:#9f8b77;}
+        .result{font-family:'Arial';font-size:25px;margin:20px auto;}
+        .game-grid{position:relative;width:100%;max-width:500px;max-height:500px;margin:0 auto;}
+        .cell-grid{position: relative;width:88%;height:88%;margin:4%;padding:2%;background-color:#bbada0;border-radius: 10px;}
+        .m-cell{float:left;width:21%;height:21%;margin:2%;max-width:100px;max-height:100px;border-radius: 6px;background-color:#ccc0b3;}
+        .m-num-cell{border-radius: 6px;font-family: Arial;font-weight:bold;text-align:center;position:absolute;}
+        .font-size1{font-size:3em;line-height:2em;}
+        .font-size2{font-size:30px;line-height:60px;}
+        .m-board{position:absolute;width:21%;height:21%;max-width:100px;max-height:100px;}
+        .board0{width:0;height:0;}
+        /* 定义keyframe动画，命名为over */
+        @keyframes over{0%{opacity: 1;}50%{opacity: 1;}50.01%{opacity: 0;}100%{opacity: 0;}}
+        @-webkit-keyframes over {0% { opacity: 1; }50% { opacity: 1; }50.01% { opacity: 0; }100% { opacity: 0; }}
+        @-moz-keyframes over {0% { opacity: 1; }50% { opacity: 1; }50.01% { opacity: 0; }100% { opacity: 0; }}
+        @-ms-keyframes over {0% { opacity: 1; }50% { opacity: 1; }50.01% { opacity: 0; }100% { opacity: 0; }}
+        @-o-keyframes over {0% { opacity: 1; }50% { opacity: 1; }50.01% { opacity: 0; }100% { opacity: 0; }}
+        .over{
+            display:none;position:absolute;font-size: 4em;color: #fff;font-weight:bold;z-index: 1;text-align: center;
+            animation: over .75s linear infinite;  
+            -webkit-animation: over .75s linear infinite;
+            -moz-animation: over .75s linear infinite;
+            -ms-animation: over .75s linear infinite;
+            -o-animation: over .75s linear infinite;
+        }
+        .over1{display:block;line-height:7em;text-indent: 1em;}
+        .over2{display:block;line-height:4em;}
+        </style>
     </head>
     <body>
         <header>2048</header>
-        <a href="javascript:;" id="start" class="start">New Game</a>
+        <a href="#">New Game</a>
         <p class="result">score:<span class="score" id="score">0</span>分</p>
         <div class="game-grid clearfix" id="game-grid">
             <div class="cell-grid  clearfix" id="cell-grid">
@@ -36,6 +65,8 @@
                 <div class="m-cell" id="cell-3-1"></div>
                 <div class="m-cell" id="cell-3-2"></div>
                 <div class="m-cell" id="cell-3-3"></div>
+
+                <div class="over">Game Over</div>
             </div>
         </div>
         <script src="./js/vendor/jquery-2.1.0.min.js"></script>

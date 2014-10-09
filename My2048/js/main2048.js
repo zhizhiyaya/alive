@@ -2,6 +2,10 @@ $(document).ready(function(){
 	var cnt = $('#cell-grid');
 	var newGame = new Newgame(cnt);
 	newGame.init();
+	// $("#start").click(function(){
+	// 	var newGame = new Newgame(cnt);
+	// 	newGame.init();
+	// });
 });
 
 function Newgame(dom){
@@ -14,19 +18,20 @@ function Newgame(dom){
 	this.space = this.dom.width()*0.04;
 	this.fontStyle = (this.scale+this.space)*4>320 ? "font-size1":"font-size2";
 	this.hasConflicted = [];
+	this.delayTime = [50,120,150,160,200];
 }
 Newgame.prototype.init = function(){
 	this.dom.height(this.dom.width());
 	for(var i=0;i<4;i++){
 		this.board[i] = [];
-		this.hasConflicted[i] = []
+		this.hasConflicted[i] = [];
 		for(var j=0;j<4;j++){
 			this.board[i][j] = 0;
 			this.hasConflicted[i][j] = false;
 		}
 	}
 	this.updateBoardView();
-	this._setGrid();
+	//this._setGrid();
 	this.addNumCell();
 	this.addNumCell();
 	this.keyDown();
@@ -34,7 +39,6 @@ Newgame.prototype.init = function(){
 };
 //布局
 Newgame.prototype._setGrid = function(){
-
 	// for(var i=0;i<4;i++){
 	// 	for(var j=0;j<4;j++){
 	// 		var cell = $('#cell-'+i+'-'+j);
@@ -64,14 +68,13 @@ Newgame.prototype.updateBoardView = function(){
 };
 Newgame.prototype.updateScore = function(){
 	$('#score').text(this.scoreNum);
-}
+};
 //随机找格子生成数字
 Newgame.prototype.addNumCell = function(){
 	if(!this.noSpace) return false;
 	var randX = parseInt(Math.floor(Math.random()*4));
 	var randY = parseInt(Math.floor(Math.random()*4));
-
-	if(this.board[randX][randY]==0){
+	if(this.board[randX][randY] == 0){
 		var randNum = Math.random()<0.5?2:4;
 		this.board[randX][randY] = randNum;
 		this.showNumWithAnimation(randX,randY,randNum);
@@ -90,9 +93,10 @@ Newgame.prototype.noSpace = function(){
 		}
 	}
 	return false;
-}
+};
 //动画显示新产生的格子
 Newgame.prototype.showNumWithAnimation = function(i,j,num){
+	var _t = this;
 	var numCell = $('#num-cell-'+i+'-'+j);
 	numCell.css({'background':this.setBgColor(num),'color':this.setNumColor(num)}).removeClass('board0');
 	numCell.addClass(this.fontStyle);
@@ -104,7 +108,7 @@ Newgame.prototype.showNumWithAnimation = function(i,j,num){
 		maxHeight:"100px",
 		top:this.setTop(i,j),
 		left:this.setLeft(i,j)
-	},50);
+	},_t.delayTime[0]);
 	var oCell = document.getElementById('num-cell-'+i+'-'+j);
 	$(oCell).text(num);
 };
@@ -149,43 +153,44 @@ Newgame.prototype.keyDown = function() {
 			case 37:
 				event.preventDefault();
 				if(_t.moveLeft()){
-					setTimeout(function(){_t.addNumCell();},160);
+					setTimeout(function(){_t.addNumCell();},_t.delayTime[3]);
 				}
 				break;
 			case 38:
 				event.preventDefault();
 				if(_t.moveUp()){
-					setTimeout(function(){_t.addNumCell();},160);
+					setTimeout(function(){_t.addNumCell();},_t.delayTime[3]);
 				}
 				break;
 			case 39:
 				event.preventDefault();
 				if(_t.moveRight()){
-					setTimeout(function(){_t.addNumCell();},160);
+					setTimeout(function(){_t.addNumCell();},_t.delayTime[3]);
 				}
 				break;
 			case 40:
 				event.preventDefault();
 				if(_t.moveDown()){
-					setTimeout(function(){_t.addNumCell();},160);
+					setTimeout(function(){_t.addNumCell();},_t.delayTime[3]);
 				}
 				break;
 			default:
 				break;
 		}
-		setTimeout(function(){_t.isGameOver();},200);
+		setTimeout(function(){_t.isGameOver();},_t.delayTime[4]);
 	});
 };
 // 游戏结束
 Newgame.prototype.isGameOver = function(){
-	if(this.noSpace() && !this.canMoveLeft() && !this.canMoveRight() && !this.canMoveUp() && !this.canMoveDown()){
+	if(!this.noSpace() && !this.canMoveLeft() && !this.canMoveRight() && !this.canMoveUp() && !this.canMoveDown()){
 		this.gameOver();
 	}
 	return false;
 };
 
 Newgame.prototype.gameOver = function(){
-	alert('GameOver');
+	if (this.fontStyle == "font-size1") {$('.over').addClass("over1");return false;}
+	if (this.fontStyle == "font-size2") {$('.over').addClass("over2");return false;}
 };
 // 向左移动
 Newgame.prototype.moveLeft = function(){
@@ -225,8 +230,8 @@ Newgame.prototype.moveLeft = function(){
 			}
 		}
 	}
-	setTimeout(function(){_t.updateBoardView()},150)
-	//setTimeout("_t.updateBoardView()",200);
+	setTimeout(function(){_t.updateBoardView()},_t.delayTime[2]);
+	//setTimeout("_t.updateBoardView()",_t.delayTime[4]);
 	return true;
 };
 // 向右移动
@@ -266,7 +271,7 @@ Newgame.prototype.moveRight = function(){
 			}
 		}
 	}
-	setTimeout(function(){_t.updateBoardView()},150)
+	setTimeout(function(){_t.updateBoardView()},_t.delayTime[2]);
 	return true;
 };
 // 向上移动
@@ -306,7 +311,7 @@ Newgame.prototype.moveUp = function(){
 			}
 		}
 	}
-	setTimeout(function(){_t.updateBoardView()},150)
+	setTimeout(function(){_t.updateBoardView()},_t.delayTime[2]);
 	return true;
 };
 // 向下移动
@@ -322,14 +327,14 @@ Newgame.prototype.moveDown = function(){
 					// 	_t.board[k][i] += _t.board[j][i];
 					// 	_t.board[j][i] = 0;
 					// }
-					if( _t.board[k][i] == 0 && _t.noBlockVertical(i,k,j) ){
+					if( _t.board[k][i] == 0 && _t.noBlockVertical(i,j,k) ){
                         //move
                         _t.showMoveAnimation(j,i,k,i);
                         _t.board[k][i] += _t.board[j][i];
 						_t.board[j][i] = 0;
                         continue;
                     }
-                    else if( _t.board[j][i] == _t.board[k][i] && _t.noBlockVertical(i,k,j) && !_t.hasConflicted[k][i] ){
+                    else if( _t.board[j][i] == _t.board[k][i] && _t.noBlockVertical(i,j,k) && !_t.hasConflicted[k][i] ){
                         //move
                         _t.showMoveAnimation(j,i,k,i);
                         //add
@@ -346,7 +351,7 @@ Newgame.prototype.moveDown = function(){
 			}
 		}
 	}
-	setTimeout(function(){_t.updateBoardView()},150)
+	setTimeout(function(){_t.updateBoardView()},_t.delayTime[2]);
 	return true;
 };
 // 判断是否可以向左移动
@@ -409,7 +414,7 @@ Newgame.prototype.noBlockHorizontal = function(row,col1,col2){
 			return false;
 	}
 	return true;
-}
+};
 // 判断垂直的列的块间是否有障碍
 Newgame.prototype.noBlockVertical = function(col,row1,row2){
 	for(var i=row1+1;i<row2;i++){
@@ -417,14 +422,15 @@ Newgame.prototype.noBlockVertical = function(col,row1,row2){
 			return false;
 	}
 	return true;
-}
+};
 // 动画移动
 Newgame.prototype.showMoveAnimation = function(fromX,fromY,toX,toY){
 	var numCell = $("#num-cell-"+fromX+'-'+fromY);
+	var _t = this;
 	numCell.animate({
 		top:this.setTop(toX,toY),
 		left:this.setLeft(toX,toY)
-	},120);
+	},_t.delayTime[1]);
 };
 
 // 支持触控
@@ -433,6 +439,7 @@ Newgame.prototype.touch = function(){
 	var endX = endY = 0;
 	var _t = this;
 	document.addEventListener("touchstart",function(e){
+		_t.delayTime = [0,30,40,50,60];
 		startX = e.changedTouches[0]["pageX"];
 		startY = e.changedTouches[0]["pageY"];
 	});
@@ -446,34 +453,37 @@ Newgame.prototype.touch = function(){
 		endY = e.changedTouches[0]["pageY"];
 		_t.judgeMove(startX,startY,endX,endY);
 	});
-
-	
 };
+
 Newgame.prototype.judgeMove = function(startX,startY,endX,endY){
 	var _t = this;
 	var documentWidth = window.screen.availWidth;
 	var deltaX = startX-endX;
 	var deltaY = startY - endY;
 
-	if( Math.abs( deltaX ) < 0.3*documentWidth && Math.abs( deltaY ) < 0.3*documentWidth )
+	if( Math.abs( deltaX ) < 0.1*documentWidth && Math.abs( deltaY ) < 0.1*documentWidth )
         return;
 
 	if (Math.abs(deltaX)>Math.abs(deltaY)) {
 		if(deltaX>0){
             if( this.moveLeft() ){
-                setTimeout(function(){_t.addNumCell();},160);
-            } else if( this.moveRight() ){
-                setTimeout(function(){_t.addNumCell();},160);
+                setTimeout(function(){_t.addNumCell();},_t.delayTime[3]);
+            }
+		} else {
+			if( this.moveRight() ){
+                setTimeout(function(){_t.addNumCell();},_t.delayTime[3]);
             }
 		}
 	} else {
 		if(deltaY>0){
 			if(this.moveUp()){
-                setTimeout(function(){_t.addNumCell();},160);
+                setTimeout(function(){_t.addNumCell();},_t.delayTime[3]);
 			}
-		} else if (this.moveDown()) {
-            setTimeout(function(){_t.addNumCell();},160);
+		} else {
+			if (this.moveDown()) {
+            	setTimeout(function(){_t.addNumCell();},_t.delayTime[3]);
+            }
 		}
 	}
-	setTimeout(function(){_t.isGameOver();},200);
-}
+	setTimeout(function(){_t.isGameOver();},_t.delayTime[4]);
+};
