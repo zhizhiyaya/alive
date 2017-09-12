@@ -1,0 +1,93 @@
+body {
+  width: 100%;
+  text-align: center;
+}
+
+#pen {
+  animation: motion, hide;
+  animation-duration: 5s, .1s;
+  animation-timing-function: linear;
+  animation-delay: 0s, 5s;
+  animation-fill-mode: forwards;
+
+  offset-rotate: 0deg;
+  offset-path: path('M 179.44695 56.6749951 L 99.820776 301.703394 309.632628 149.482963 50.450888 150.591211 258.383114 302.196491Z');
+  transform: translateX(0) translateY(-50px);
+}
+
+#ruler {
+  animation-name: ruler-move, hide;
+  animation-duration: 5s, .1s;
+  animation-timing-function: steps(1), linear;
+  animation-delay: 0s, 5s;
+  animation-fill-mode: forwards;
+
+  transform-origin: center center;
+  transform: rotate(108deg) translate(-40px, -182px);
+}
+
+#star {
+  animation-name: draw, shine;
+  animation-duration: 5s, 1s;
+  animation-delay: 0s, 5.2s;
+  animation-timing-function: linear, ease-out;
+  animation-fill-mode: forwards;
+
+  stroke-width: 3px;
+  stroke-dasharray: 1291.271240234375px;
+  stroke-dashoffset: 1291.271240234375px;
+}
+
+@keyframes shine {
+  50% {
+    stroke:gold;
+    stroke-width: 5px;
+    transform: scale(1.1);
+  }
+  100% {
+    stroke:gold;
+  }
+}
+@keyframes draw {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes hide {
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes motion {
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes ruler-move {
+  0% {
+    /** 1 **/
+    /*transform: rotate(108deg) translateY(-7px) translateX(165px);*/
+  }
+
+  20% {
+    /** 2 **/
+    transform: rotate(-36deg) translateY(212px) translateX(-90px);
+  }
+
+  40% {
+    /** 3 **/
+    transform: rotate(-.5deg) translateY(154px) translateX(20px);
+  }
+
+  60% {
+    /** 4 **/
+    transform: rotate(36deg) translateY(196px) translateX(122px);
+  }
+
+  80%, 100% {
+    /** 5 **/
+    transform: rotate(72deg) translateY(18px) translateX(175px);
+  }
+}

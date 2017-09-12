@@ -1,0 +1,65 @@
+
+body {
+  width: 100%;
+  text-align: center;
+  transform: scale(0.5)
+}
+path {
+  fill: transparent;
+  stroke: #332C2B;
+  stroke-dasharray: 50000px;
+  animation-name: outline;
+  animation-duration: 10s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+}
+
+@keyframes outline {
+  0% {
+    stroke-dashoffset: 50000px;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+#L5 path {
+  animation-delay: 1s;
+}
+#L5-3 path {
+  animation-delay: 1.5s;
+}
+#LT path {
+  animation-delay: 2s;
+}
+#LE path {
+  animation-delay: 3s;
+}
+#LE-2 path, #LE-3 path, #LE-4 path {
+  animation-delay: 3.5s;
+}
+#LA path {
+  animation-delay: 4s;
+}
+#LM path {
+  animation-delay: 5s;
+}
+#LM-2 path {
+  animation-delay: 5.8s;
+}
+#L7-1 path {
+  animation-name: outline, lint;
+  animation-duration: 10s, 0.5s;
+  animation-fill-mode: both, forwards;
+  animation-timing-function: ease-in-out, ease-in;
+  animation-delay: 0s, 7s;
+}
+
+@keyframes lint {
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    stroke: #E44D26;
+  }
+}
