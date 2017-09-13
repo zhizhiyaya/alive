@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>test1</title>
+		<link rel="stylesheet" href="./test.css" />
+	</head>
+	<body>
+
+		<!-- iframe 被大多数浏览器支持 -->
+		<iframe src="test.svg" width="100%" height="600"></iframe>
+
+
+		<!-- HTML 规范中没有 <embed> 标签， 所以使用了 adobe 的插件 -->
+		<embed src="test.svg" width="100%" height="600" type="image/svg+xml"
+			pluginspage="http://www.adobe.com/svg/viewer/install/" />
+
+		<!-- object 标签是 html4 的标准标签，但是 IE 是不允许使用脚本的  -->
+		<object data="test.svg" width="100%" height="600"
+			type="image/svg+xml"
+			codebase="http://www.adobe.com/svg/viewer/install/" />
+		<!-- codebase 属性指向下载插件的 URL。 -->
+
+	</body>
+</html>
