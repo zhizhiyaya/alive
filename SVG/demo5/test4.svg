@@ -1,0 +1,26 @@
+<?xml version="1.0" standalone="no"?>
+<!-- 第一行包含了 XML 声明。请注意 standalone 属性！该属性规定此 SVG 文件是否是“独立的”，或含有对外部文件的引用。
+standalone="no" 意味着 SVG 文档会引用一个外部文件 - 在这里，是 DTD 文件。 -->
+
+<!-- 第二和第三行引用了这个外部的 SVG DTD。该 DTD 位于 “http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd”。该 DTD 位于 W3C，含有所有允许的 SVG 元素。 -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	<path
+		d="M10,110 A120,120 -45 0,1 110 10 A120,120 -45 0,1 10,110"
+		stroke="lightgrey" stroke-width="2"
+		fill="none" id="theMotionPath"/>
+
+	<circle cx="10" cy="110" r="3" fill="lightgrey"  />
+	<circle cx="110" cy="10" r="3" fill="lightgrey"  />
+
+	<!-- Red circle which will be moved along the motion path. -->
+	<circle cx="" cy="" r="5" fill="red">
+
+		<!-- Define the motion path animation -->
+		<animateMotion dur="6s" repeatCount="indefinite">
+		  	<mpath xlink:href="#theMotionPath"/>
+		</animateMotion>
+	</circle>
+</svg>

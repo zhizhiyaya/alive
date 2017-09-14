@@ -1,0 +1,36 @@
+<?xml version="1.0" standalone="no"?>
+<!-- 第一行包含了 XML 声明。请注意 standalone 属性！该属性规定此 SVG 文件是否是“独立的”，或含有对外部文件的引用。
+standalone="no" 意味着 SVG 文档会引用一个外部文件 - 在这里，是 DTD 文件。 -->
+
+<!-- 第二和第三行引用了这个外部的 SVG DTD。该 DTD 位于 “http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd”。该 DTD 位于 W3C，含有所有允许的 SVG 元素。 -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+	<rect
+		x="10" y="10"
+		width="200" height="20"
+		style="fill:#ffd9b3;stroke:#ff9933;stroke-width:1;opacity:0.8"
+	>
+		<!-- animate: 相当于 CSS 中的 transition -->
+		<animate
+			attributeName="width"
+			attributeType="XML"
+			from="200" to="20"
+			begin="0s" dur="5s"
+			fill="freeze" />
+	</rect>
+
+	<rect
+		x="10" y="40"
+		width="200" height="20"
+		style="fill:#ffd9b3;stroke:#ff9933;stroke-width:1;opacity:0.8"
+	>
+		<!-- animateTransform: 相当于 CSS 中的 transform -->
+		<animateTransform attributeType="XML"
+			attributeName="transform" type="scale"
+			from="1" to="4 2"
+			begin="0s" dur="4s" fill="freeze"/>
+	</rect>
+</svg>

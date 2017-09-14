@@ -20,6 +20,7 @@ standalone="no" 意味着 SVG 文档会引用一个外部文件 - 在这里，�
 		stroke="#ffd9b3" stroke-width="6" fill="#ff9933"
 		style="opacity:0.9"
 	/>
+
 	<!-- cx cy 是圆心位置 -->
 	<!-- 用style 或者直接指定填充属性 都是允许的 -->
 	<!-- style="fill:#ffd9b3;stroke:#ff9933;stroke-width:6;opacity:0.9" -->
