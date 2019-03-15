@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>svg钟表</title>
+<style type="text/css">
+svg{margin:auto;position:absolute;top:0;bottom:0;left:0;right:0;}
+/* path{stroke-dashoffset:0;stroke-dasharray:0;transition:stroke-dashoffset 3s;} */
+/* svg:hover path{stroke-dashoffset:0;} */
+</style>
+<script src="https://leestar54.github.io/h5-demo/js/jquery.min.js"></script>
+
+<script>
+$(function(){
+	//$("line").attr("x2",800);
+	
+	//1.绘制表盘
+	// var svg=$("svg")
+	// var ns="http://www.w3.org/2000/svg"
+
+	//$("line").attr("x2",800);
+
+	const svg = $('svg');
+	const ns = "http://www.w3.org/2000/svg";
+	//  22 个刻度, 220deg, 内圆半径ir = 96 , 外圆半径or = 110, w = 216px, h = 160px;
+	const strokeSetting = {
+		'stroke-width': 3,
+		'stroke-linecap': 'round',
+		'stroke': 'rgb(103, 161, 255)'
+	};
+	//  21 个刻度, 220deg, 内圆半径ir = 96 , 外圆半径or = 110, w = 216px, h = 160px;
+	// 圆心坐标
+	// const x = 108;
+	// const y = 110;
+	const x = 300;
+	const y = 300;
+	const innerR = 96;
+	// 绘制刻度
+	const fixDeg = getArc(-200); // 0度是3点钟方向，顺时针递增
+	const gap = getArc(220 / 21); // 共 220deg ,平分 22份
+	const points = [];
+	for (let i = 22; i--;) { // 绘制21个刻度
+		const deg = i * gap + fixDeg;
+		const line = document.createElementNS(ns, 'line'); // 刻度线
+		const startR = i === 21 || i === 0 ? 96 : 107;
+		const endR = 110;
+		$(line).attr({
+			'x1': x + startR * Math.cos(deg),
+			'y1': y + startR * Math.sin(deg),
+			'x2': x + endR * Math.cos(deg),
+			'y2': y + endR * Math.sin(deg),
+			...strokeSetting
+		}).appendTo(svg);
+		if (i === 0 || i === 21) {
+			points.push(x + startR * Math.cos(deg));
+			points.push(y + startR * Math.sin(deg));
+		}
+	}
+	function getArc(deg) {
+		return deg / 360 * Math.PI * 2;
+	}
+	function getTrianglePoint(deg, ox = x, oy = y, r = innerR) {
+		return `${ox + r * Math.cos(deg)} ${oy + r * Math.sin(deg)}`;
+	}
+	// 弧线
+	const arc = document.createElementNS(ns, 'path');
+	$(arc).attr({
+		d: `M ${points[0]} ${points[1]} A 96 96, 0, 1, 0, ${points[2]} ${points[3]}`,
+		'fill': 'transparent',
+		...strokeSetting
+	}).appendTo(svg);
+
+	// 三角形指针
+	const polygon = document.createElementNS(ns, 'path'); // 三角形
+	$(polygon).appendTo(svg);
+	$(polygon).attr({
+		d: `M ${getTrianglePoint(fixDeg)} A 99 99, 0, 0, 1,
+			${getTrianglePoint(fixDeg + getArc(10))},
+			M ${getTrianglePoint(fixDeg + getArc(5), x, y, innerR + 10)} Z`,
+		'fill': '#EAB662',
+		...strokeSetting
+
+	});
+	
+	setInterval(function () {
+		
+		// $(polygon).attr({
+		//     d: `M${points[0]} ${points[1]} A 96 96, 0, 1, 0, L , A 96 96, 0, 1, 0, Z`,
+		//     'fill': '#EAB662',
+		//     ...strokeSetting
+		// });
+	}, 200);
+})
+	
+</script>
+</head>
+
+<body>
+<svg width="800" height="800">
+	<!--<line x1=10 y1=100 x2=300 y2=200 style="stroke:rgb(0,204,255);stroke-width:3"></line>-->
+	<!--<circle cx="50" cy="50" r="40" stroke="green" stroke-width="5" fill="yellow" />-->
+</svg>
+</body>
+</html>
